@@ -1,10 +1,15 @@
 using System;
+using ChaosBenchmark;
 
 namespace Sample.FillBuffer.Tests
 {
-    static class ArrayCopy
+    class ArrayCopy : Test<byte[], Args>
     {
-        public static byte[] Perform(Args args)
+        public override string Name() => nameof(ArrayCopy);
+
+        public override bool Supported() => true;
+
+        public override byte[] Invoke(Args args)
         {
             byte[] result = new byte[args.height * args.stride];
 

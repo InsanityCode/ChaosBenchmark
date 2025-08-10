@@ -18,9 +18,10 @@ namespace Sample.FillBuffer
         public static int Main(string[] args)
         {
             Test<byte[], Args>[] tests = [
-                new Test<byte[], Args>(nameof(Tests.NaiveCopy), Tests.NaiveCopy.Perform),
-                new Test<byte[], Args>(nameof(Tests.ArrayCopy), Tests.ArrayCopy.Perform),
-                new Test<byte[], Args>(nameof(Tests.MemCopy),   Tests.MemCopy.Perform),
+                new Tests.NaiveCopy(),
+                new Tests.ArrayCopy(),
+                new Tests.MemCopy.DllImport(),
+                new Tests.MemCopy.LibImport(),
             ];
 
             TestRunner<byte[], Args>.Run(tests, Args.CreateRandom, Verify, 10, 10);

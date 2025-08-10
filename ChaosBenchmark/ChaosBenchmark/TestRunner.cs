@@ -21,7 +21,7 @@ namespace ChaosBenchmark
 
             int padding = 0;
             foreach (Test<Result, Args> test in tests)
-                padding = Math.Max(padding, test.name.Length);
+                padding = Math.Max(padding, test.Name().Length);
 
             for (int i = 0; i < numBatches; i++)
             {
@@ -29,8 +29,7 @@ namespace ChaosBenchmark
 
                 Print(i, numBatches, batchFmt);
 
-                System.Collections.Generic.List<Test<Result, Args>> batchTests
-                    = new System.Collections.Generic.List<Test<Result, Args>>(tests);
+                System.Collections.Generic.List<Test<Result, Args>> batchTests = [.. tests];
 
                 while (batchTests.Count > 0)
                 {
@@ -40,10 +39,10 @@ namespace ChaosBenchmark
 
                     // Only do this once and just assume that the test method is pure
                     // in order to avoid result verification or caching messing with time measurement.
-                    if (verifyResult != null && !verifyResult(args, chosen.test(args)))
+                    if (chosen.Supported() && verifyResult != null && !verifyResult(args, chosen.Invoke(args)))
                     {
                         Console.Error.WriteLine();
-                        Console.Error.WriteLine($"Test '{chosen.name}' yielded wrong result!");
+                        Console.Error.WriteLine($"Test '{chosen.Name()}' yielded wrong result!");
                         Console.Error.WriteLine(args.ToString());
                         return;
                     }

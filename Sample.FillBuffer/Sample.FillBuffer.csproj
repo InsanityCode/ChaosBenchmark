@@ -6,6 +6,13 @@
     <LangVersion>12.0</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)'=='net8.0'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ChaosBenchmark\ChaosBenchmark.csproj" />
   </ItemGroup>
