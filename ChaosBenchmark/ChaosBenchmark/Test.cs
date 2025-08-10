@@ -3,26 +3,26 @@ using System.Diagnostics;
 
 namespace ChaosBenchmark
 {
-    public class Test<Result>
+    public class Test<Result, Args>
     {
-        public delegate Result TestMethod();
+        public delegate Result TestMethod(Args args);
 
         public readonly string name;
-        public readonly TestMethod action;
+        public readonly TestMethod test;
 
         readonly Stopwatch tm = new Stopwatch();
 
-        public Test(string name, TestMethod action)
+        public Test(string name, TestMethod test)
         {
             this.name = name;
-            this.action = action;
+            this.test = test;
         }
 
-        public void Run(int batchSize)
+        public void Run(int batchSize, Args args)
         {
             tm.Start();
             for (int i = 0; i < batchSize; i++)
-                action();
+                test(args);
             tm.Stop();
         }
 

@@ -3,19 +3,17 @@ using System.Runtime.InteropServices;
 
 namespace Sample.FillBuffer.Tests
 {
-    using static Program;
-
     static class MemCopy
     {
         [DllImport("msvcrt.dll", EntryPoint = "memcpy", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
         public static extern IntPtr memcpy(IntPtr dest, IntPtr source, int count);
 
-        public static byte[] Perform()
+        public static byte[] Perform(Args args)
         {
-            byte[] result = new byte[HEIGHT * stride];
+            byte[] result = new byte[args.height * args.stride];
 
-            Array.Copy(pattern, result, pattern.Length);
-            int numBytesWritten = pattern.Length;
+            Array.Copy(args.pattern, result, args.pattern.Length);
+            int numBytesWritten = args.pattern.Length;
 
             GCHandle resultHandle = GCHandle.Alloc(result);
             IntPtr src = Marshal.UnsafeAddrOfPinnedArrayElement(result, 0);

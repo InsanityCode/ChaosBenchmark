@@ -2,16 +2,14 @@ using System;
 
 namespace Sample.FillBuffer.Tests
 {
-    using static Program;
-
     static class ArrayCopy
     {
-        public static byte[] Perform()
+        public static byte[] Perform(Args args)
         {
-            byte[] result = new byte[HEIGHT * stride];
+            byte[] result = new byte[args.height * args.stride];
 
-            Array.Copy(pattern, result, pattern.Length);
-            int numBytesWritten = pattern.Length;
+            Array.Copy(args.pattern, result, args.pattern.Length);
+            int numBytesWritten = args.pattern.Length;
 
             for (; numBytesWritten * 2 < result.Length; numBytesWritten <<= 1)
                 Array.Copy(result, 0, result, numBytesWritten, numBytesWritten);

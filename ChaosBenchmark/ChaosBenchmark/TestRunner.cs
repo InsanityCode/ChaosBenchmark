@@ -2,43 +2,59 @@
 
 namespace ChaosBenchmark
 {
-    public static class TestRunner
+    public static class TestRunner<Result, Args>
     {
+        public delegate Args CreateBatchArgs();
+        public delegate bool VerifyResult(Args args, Result result);
+
         static readonly Random random = new Random();
 
-        public static void Run<Result>(
-            Test<Result>[] tests,
+        public static void Run(
+            Test<Result, Args>[] tests,
+            CreateBatchArgs createArgs,
+            VerifyResult verifyResult,
             int numBatches,
-            int batchSize,
-            int printStep
+            int batchSize
             )
         {
             string batchFmt = "D" + numBatches.ToString().Length;
 
             int padding = 0;
-            foreach (Test<Result> test in tests)
+            foreach (Test<Result, Args> test in tests)
                 padding = Math.Max(padding, test.name.Length);
 
             for (int i = 0; i < numBatches; i++)
             {
-                if (i % printStep == 0)
-                    Print(i, numBatches, batchFmt);
+                Args args = createArgs();
 
-                System.Collections.Generic.List<Test<Result>> batchTests
-                    = new System.Collections.Generic.List<Test<Result>>(tests);
+                Print(i, numBatches, batchFmt);
+
+                System.Collections.Generic.List<Test<Result, Args>> batchTests
+                    = new System.Collections.Generic.List<Test<Result, Args>>(tests);
 
                 while (batchTests.Count > 0)
                 {
                     int rnd = random.Next(batchTests.Count);
-                    Test<Result> chosen = batchTests[rnd];
+                    Test<Result, Args> chosen = batchTests[rnd];
                     batchTests.RemoveAt(rnd);
-                    chosen.Run(batchSize);
+
+                    // Only do this once and just assume that the test method is pure
+                    // in order to avoid result verification or caching messing with time measurement.
+                    if (verifyResult != null && !verifyResult(args, chosen.test(args)))
+                    {
+                        Console.Error.WriteLine();
+                        Console.Error.WriteLine($"Test '{chosen.name}' yielded wrong result!");
+                        Console.Error.WriteLine(args.ToString());
+                        return;
+                    }
+
+                    chosen.Run(batchSize, args);
                 }
             }
             Print(numBatches, numBatches, batchFmt);
 
             Console.WriteLine();
-            foreach (Test<Result> test in tests)
+            foreach (Test<Result, Args> test in tests)
                 test.PrintResult(padding);
         }
 
