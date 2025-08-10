@@ -17,6 +17,7 @@ namespace Sample.FillBuffer
             Test<byte[]>[] tests = [
                 new Test<byte[]>(nameof(Tests.NaiveCopy), Tests.NaiveCopy.Perform),
                 new Test<byte[]>(nameof(Tests.ArrayCopy), Tests.ArrayCopy.Perform),
+                new Test<byte[]>(nameof(Tests.MemCopy),   Tests.MemCopy.Perform),
             ];
 
             // verfify correct result
