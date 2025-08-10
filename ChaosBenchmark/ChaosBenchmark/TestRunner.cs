@@ -6,8 +6,8 @@ namespace ChaosBenchmark
     {
         static readonly Random random = new Random();
 
-        public static void Run(
-            Test[] tests,
+        public static void Run<Result>(
+            Test<Result>[] tests,
             int numBatches,
             int batchSize,
             int printStep
@@ -16,7 +16,7 @@ namespace ChaosBenchmark
             string batchFmt = "D" + numBatches.ToString().Length;
 
             int padding = 0;
-            foreach (Test test in tests)
+            foreach (Test<Result> test in tests)
                 padding = Math.Max(padding, test.name.Length);
 
             for (int i = 0; i < numBatches; i++)
@@ -24,13 +24,13 @@ namespace ChaosBenchmark
                 if (i % printStep == 0)
                     Print(i, numBatches, batchFmt);
 
-                System.Collections.Generic.List<Test> batchTests
-                    = new System.Collections.Generic.List<Test>(tests);
+                System.Collections.Generic.List<Test<Result>> batchTests
+                    = new System.Collections.Generic.List<Test<Result>>(tests);
 
                 while (batchTests.Count > 0)
                 {
                     int rnd = random.Next(batchTests.Count);
-                    Test chosen = batchTests[rnd];
+                    Test<Result> chosen = batchTests[rnd];
                     batchTests.RemoveAt(rnd);
                     chosen.Run(batchSize);
                 }
@@ -38,7 +38,7 @@ namespace ChaosBenchmark
             Print(numBatches, numBatches, batchFmt);
 
             Console.WriteLine();
-            foreach (Test test in tests)
+            foreach (Test<Result> test in tests)
                 test.PrintResult(padding);
         }
 

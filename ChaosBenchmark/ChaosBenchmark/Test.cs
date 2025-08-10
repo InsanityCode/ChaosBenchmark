@@ -3,14 +3,14 @@ using System.Diagnostics;
 
 namespace ChaosBenchmark
 {
-    public class Test
+    public class Test<Result>
     {
-        public delegate void TestMethod();
+        public delegate Result TestMethod();
 
         public readonly string name;
+        public readonly TestMethod action;
 
         readonly Stopwatch tm = new Stopwatch();
-        readonly TestMethod action;
 
         public Test(string name, TestMethod action)
         {
