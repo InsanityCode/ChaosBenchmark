@@ -15,7 +15,8 @@ namespace Sample.FillBuffer
         public static int Main(string[] args)
         {
             Test<byte[]>[] tests = [
-                new Test<byte[]>(nameof(Tests.NaiveCopy), Tests.NaiveCopy.Perform)
+                new Test<byte[]>(nameof(Tests.NaiveCopy), Tests.NaiveCopy.Perform),
+                new Test<byte[]>(nameof(Tests.ArrayCopy), Tests.ArrayCopy.Perform),
             ];
 
             // verfify correct result
@@ -29,7 +30,7 @@ namespace Sample.FillBuffer
                                 throw new System.Exception($"'{test.name}' yielded wrong result!");
             }
 
-            TestRunner.Run(tests, 100, 10, 10);
+            TestRunner.Run(tests, 100, 10, 1);
             return 0;
         }
     }
