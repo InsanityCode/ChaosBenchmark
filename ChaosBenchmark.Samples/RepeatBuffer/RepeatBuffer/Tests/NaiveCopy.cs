@@ -1,6 +1,4 @@
-using ChaosBenchmark;
-
-namespace Sample.FillBuffer.Tests
+namespace ChaosBenchmark.Samples.RepeatBuffer.Tests
 {
     class NaiveCopy : Test<byte[], Args>
     {

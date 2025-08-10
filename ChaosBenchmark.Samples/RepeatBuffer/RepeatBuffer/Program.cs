@@ -1,6 +1,4 @@
-﻿using ChaosBenchmark;
-
-namespace Sample.FillBuffer
+﻿namespace ChaosBenchmark.Samples.RepeatBuffer
 {
     static class Program
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Sample.FillBuffer
+namespace ChaosBenchmark.Samples.RepeatBuffer
 {
     public class Args
     {

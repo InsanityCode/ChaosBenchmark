@@ -1,8 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
-using ChaosBenchmark;
 
-namespace Sample.FillBuffer.Tests.MemCopy
+namespace ChaosBenchmark.Samples.RepeatBuffer.Tests.MemCopy
 {
     class DllImport : Test<byte[], Args>
     {

@@ -1,7 +1,6 @@
 using System;
-using ChaosBenchmark;
 
-namespace Sample.FillBuffer.Tests
+namespace ChaosBenchmark.Samples.RepeatBuffer.Tests
 {
     class ArrayCopy : Test<byte[], Args>
     {

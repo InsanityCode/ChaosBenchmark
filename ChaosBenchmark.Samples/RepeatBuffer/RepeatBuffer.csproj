@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace />
+    <RootNamespace>ChaosBenchmark.Samples</RootNamespace>
     <LangVersion>12.0</LangVersion>
   </PropertyGroup>
 
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChaosBenchmark\ChaosBenchmark.csproj" />
+    <ProjectReference Include="..\..\ChaosBenchmark\ChaosBenchmark.csproj" />
   </ItemGroup>
 
 </Project>

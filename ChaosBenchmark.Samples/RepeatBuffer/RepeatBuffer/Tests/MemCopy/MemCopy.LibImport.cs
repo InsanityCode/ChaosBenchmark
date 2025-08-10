@@ -1,11 +1,9 @@
-using ChaosBenchmark;
-
 #if NET7_0_OR_GREATER
 using System;
 using System.Runtime.InteropServices;
 #endif
 
-namespace Sample.FillBuffer.Tests.MemCopy
+namespace ChaosBenchmark.Samples.RepeatBuffer.Tests.MemCopy
 {
     partial class LibImport : Test<byte[], Args>
     {
