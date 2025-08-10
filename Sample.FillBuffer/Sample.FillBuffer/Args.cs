@@ -44,7 +44,7 @@ namespace Sample.FillBuffer
             bldr.AppendLine(stride.ToString());
             bldr.Append(nameof(pattern));
             bldr.Append(": {");
-            bldr.Append(string.Join(',', pattern.Select(ByteToHex)));
+            bldr.Append(string.Join(", ", pattern.Select(ByteToHex)));
             bldr.AppendLine("}");
             return bldr.ToString();
         }
